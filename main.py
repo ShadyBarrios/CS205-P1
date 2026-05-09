@@ -20,6 +20,8 @@ from enums import AlgosEnum
 
 ROW_SIZE = 3
 
+# NOTE: IT IS IMPORTANT TO KEEP THE PUZZLES AS TUPLES SO THAT THEY CAN BE HASHED
+
 def printPuzzle(puzzle):
     output = ""
     for i in range(0, len(puzzle)):
@@ -41,7 +43,7 @@ def main():
         return
 
     if puzzleChoice == 1: # just put this random seq of numbers from the example
-        puzzle = [0, 1, 2, 4, 5, 3, 7, 8, 6]
+        puzzle = (0, 1, 2, 4, 5, 3, 7, 8, 6)
     else:
         print("Enter your puzzle, using a zero to represent the blank. Please only enter valid 8-puzzles.")
         print("Enter the puzzle demilimiting the numbers with a space. RET only when finished.")
@@ -73,6 +75,7 @@ def main():
                         puzzle.append(digit)
         
     print("Given puzzle: ")
+    puzzle = tuple(puzzle)
     printPuzzle(puzzle)
 
     try:

@@ -86,7 +86,7 @@ def main():
     
     if algoChoice == 1: algoChoice = AlgosEnum.UNIFORM
     elif algoChoice == 2: algoChoice = AlgosEnum.MISPLACED
-    elif algoChoice == 3: algoChoice = AlgosEnum.EUCLIDEAN
+    elif algoChoice == 3: algoChoice = AlgosEnum.MANHATTAN
     
     # here i will call algo and then print out the output
     print(f"Algo Choice: {algoChoice}")

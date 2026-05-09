@@ -4,7 +4,7 @@ from enum import Enum
 class AlgosEnum(Enum):
     UNIFORM = 1
     MISPLACED = 2
-    EUCLIDEAN = 3
+    MANHATTAN = 3
 
 class ActionsEnum(Enum):
     UP = 1
@@ -14,4 +14,4 @@ class ActionsEnum(Enum):
 
 class HeuristicsEnum(Enum):
     MISPLACED = 1
-    EUCLIDEAN = 2
+    MANHATTAN = 2

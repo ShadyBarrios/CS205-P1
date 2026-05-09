@@ -1,7 +1,4 @@
 # this will represent a node in the solution tree (f(n) = g(n) + h(n))
-import math
-from action import Action
-from state import State
 from enums import AlgosEnum
 
 GOAL = (1,2,3,4,5,6,7,8,0) # goal state for 8-puzzle
@@ -27,7 +24,7 @@ class Node:
         self.parent = parent
         self.actionToReachThis = action
 
-    # makes it more readable
+    # needed for hashing
     def __lt__(self, rhs):
         return self.totalCost < rhs.totalCost
     
@@ -39,8 +36,8 @@ class Node:
     def getHeuristic(self):
         if self.mode == AlgosEnum.MISPLACED:
             return self.misplaced()
-        else: # must be euclidean
-            return self.euclidean()
+        else: # must be manhattan
+            return self.manhattan()
     
     def misplaced(self):
         counter = 0
@@ -48,18 +45,17 @@ class Node:
             counter += int(GOAL[idx] != self.state.getTile(idx))
         return counter
 
-    def euclidean(self):
+    def manhattan(self):
         runningSum = 0
         for i in range(len(self.state.board)):
             if self.state.board[i] == 0: # skip blank
                 continue
 
-            row = i / 3 # Change 3 for larger puzzles
+            row = i // 3 # Change 3 for larger puzzles
             col = i % 3 
             goal_row, goal_col = GOAL_COORDINATES[self.state.board[i]]
 
-            # pythag!
-            runningSum += math.sqrt((row - goal_row) ** 2 + (col - goal_col) ** 2)
+            runningSum += abs(row - goal_row) + abs(col - goal_col)
         return runningSum
 
     def children(self): # generate childeren with the same heuristic

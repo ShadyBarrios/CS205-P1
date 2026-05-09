@@ -23,7 +23,7 @@ class State:
         # neat trick, only consider the 0 since numbers can only move "to"
         # the 0. so treat the 0 like a real tile and find where it can move
         zero = self.board.index(0)
-        zeroRow = zero / 3
+        zeroRow = zero // 3 # THIS NEEDS TO BE INT DIVISION !!
         zeroCol = zero % 3 # change this three for larger puzzles
 
         possibleActions = []

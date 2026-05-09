@@ -1,5 +1,7 @@
 # this will represent a node in the solution tree (f(n) = g(n) + h(n))
 from action import Action
+from state import State
+from enums import AlgosEnum
 
 GOAL = [1,2,3,4,5,6,7,8,0] # goal state for 8-puzzle
 GOAL_COORDINATES = { # wehere each number is expected to be
@@ -15,15 +17,27 @@ GOAL_COORDINATES = { # wehere each number is expected to be
 }
 
 class Node:
-    def __init__(self, g, h, parent, action, state):
-        self.totalCost = g + h
+    def __init__(self, g, heuristic, parent, action, puzzle):
         self.reachCost = g
-        self.heuristicCost = h
+        self.heuristicCost = self.calculateHeuristic(heuristic)
+        self.totalCost = self.reachCost + self.heuristicCost
         self.parent = parent
         self.actionToReachThis = action
-        self.state = state
+        self.state = State(puzzle)
 
     # makes it more readable
     def __lt__(self, rhs):
         return self.totalCost < rhs.totalCost
+    
+    def calculateHeuristic(self, mode):
+        if mode == AlgosEnum.UNIFORM: # f(n) = g(n), h(n) = 0
+            return 0
+        return self.getHeuristic(mode)
+    
+    def getHeuristic(self, mode):
+        if mode == AlgosEnum.MISPLACED:
+            return 1
+        else: # must be euclidean
+            return 2
+
 

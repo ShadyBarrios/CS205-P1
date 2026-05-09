@@ -7,6 +7,9 @@ class State:
         self.board = tuple(puzzle)
         self.possibleActions = self.calculatePossibleActions()
     
+    def getTile(self, idx):
+        return self.board[idx]
+    
     def __hash__(self): # needed for tracking visited states
         return hash(self.board)
     

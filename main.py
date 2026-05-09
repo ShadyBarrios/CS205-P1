@@ -17,18 +17,10 @@ Select algorithm.
 
 """
 from enums import AlgosEnum
-
-ROW_SIZE = 3
+from util import formatPuzzle
+from solver import Solver
 
 # NOTE: IT IS IMPORTANT TO KEEP THE PUZZLES AS TUPLES SO THAT THEY CAN BE HASHED
-
-def printPuzzle(puzzle):
-    output = ""
-    for i in range(0, len(puzzle)):
-        output = output + str(puzzle[i]) + " "
-        if (i+1) % ROW_SIZE == 0:
-            output = output + "\n"
-    print(output)
 
 def main():
     print("Welcome to my 8-puzzle solver.")
@@ -76,7 +68,7 @@ def main():
         
     print("Given puzzle: ")
     puzzle = tuple(puzzle)
-    printPuzzle(puzzle)
+    print(formatPuzzle(puzzle))
 
     try:
         print("Select algorithm.")
@@ -98,6 +90,11 @@ def main():
     
     # here i will call algo and then print out the output
     print(f"Algo Choice: {algoChoice}")
+    solver = Solver(puzzle, algoChoice)
+    solution = solver.solve()
+    if solution.exportTrace():
+        print("Solution trace exported to solutiontrace.txt")
+    
 
 if __name__ == "__main__":
     main()
